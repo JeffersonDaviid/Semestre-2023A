@@ -1,0 +1,26 @@
+
+hola.asm - programa en ensamblador para enviar a consola los bytes almacenados en memoria, que corresponden a los 
+           a los codigos ASCII de los caracteres: Hola Mundo! y los bytes 0A y 0D (NL y CR)
+
+Ensamblar: nasm -felf64 hola.asm     // produce el archivo objeto hola.o
+
+Encadenar: ld -o hola hola.o	     // encadena el archivo objeto hola.o para producir el ejecutable "hola"
+
+Ejecutar: ./hola		     // "saca" a la consola la cadena "Hola Mundo!", NL, CR y BEL
+
+
+add.asm - programa que suma los numeros 3 y 4; almacena en un byte de memoria el resultado (7); envia a consola los
+          bytes almacenados en memoria 
+
+Ensamblar: nasm -felf64 add2.asm
+Encadenar: ld -o add2 add2.o
+Ejecutar:  ./add		// "saca" a consola: "The sum is:" y (0x07 = BEL - sonara la campana)
+
+Ver los resultados en OCTAL: ./add | od -b
+0000000 124 150 145 040 163 165 155 040 151 163 072 012 015 007 - Codigos ASCII en octal
+
+012 (x0A)    LF  '\n' (new line)
+015 (x0D)    CR  '\r' (carriage ret)
+007 (x07)    BEL '\a' (bell)
+
+El comando "make" ensambla y encadena los progamas hola.asm y add.asm; genera los ejecutables hola y add

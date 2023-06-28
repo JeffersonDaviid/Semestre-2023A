@@ -5,9 +5,9 @@ import Unit4Pilas.PilaOperaciones;
 
 public class RepasoExamen1 {
     public static void main(String[] args) {
-        // ejercicio18();
+        ejercicio18();
 
-        eliminarRepetidosSucesivos();
+        // eliminarRepetidosSucesivos();
 
     }
 
@@ -68,7 +68,7 @@ public class RepasoExamen1 {
     // ----------------------------------------------------------------------------------------------------------
     // PILAS
 
-    public   void eliminarRepetidosSucesivos() {
+    public void eliminarRepetidosSucesivos() {
         PilaOperaciones pila1 = new PilaOperaciones(8);
         pila1.insertarPila();
         pila1.insertarPila();
@@ -78,12 +78,6 @@ public class RepasoExamen1 {
         pila1.insertarPila();
         pila1.insertarPila();
         pila1.insertarPila();
-        pila1.mostrarPila();
-
-        for (int i = 0; i <= pila1.Tope(); i++) {
-if(  )
-        }
-
         pila1.mostrarPila();
 
     }

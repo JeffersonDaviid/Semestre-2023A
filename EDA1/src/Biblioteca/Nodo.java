@@ -1,4 +1,4 @@
-package Unit7Listas;
+package Biblioteca;
 
 public class Nodo {
     private String dato;

@@ -60,7 +60,7 @@ public class InfijoPrefijo {
     }
 
     public static void main(String[] args) {
-        String expresionInfija = "3*2+((5/2)-8)";
+        String expresionInfija = "1*(2+3)/(4-5)";
         String expresionPrefija = infijoAPrefijo(expresionInfija);
 
         System.out.println("Expresión infija: " + expresionInfija);

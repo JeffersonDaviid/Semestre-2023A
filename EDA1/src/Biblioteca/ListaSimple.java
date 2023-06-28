@@ -1,4 +1,4 @@
-package Unit7Listas;
+package Biblioteca;
 
 /** 
  *   @autor: CHILENO MANOBANDA JEFFERSON DAVID
@@ -122,8 +122,6 @@ package Unit7Listas;
 
 import javax.swing.JOptionPane;
 
-import Biblioteca.Nodo;
-
 public class ListaSimple {
     private static String lista = "";
 
@@ -143,6 +141,20 @@ public class ListaSimple {
         lista += nodoAux.getDato() + "-> NULL";
         JOptionPane.showMessageDialog(null, lista);
         lista = "";
+    }
+
+    public static void mostrarListaFormaRecursiva(Nodo primerNodo) {
+        if (primerNodo == null) {
+            JOptionPane.showMessageDialog(null, "Lista vacia");
+            return;
+        }
+        if (primerNodo.getSiguiente() == null)
+            System.err.print(primerNodo.getDato() + " -> NULL\n");
+        else {
+            System.out.print(primerNodo.getDato() + " ->");
+            mostrarListaFormaRecursiva(primerNodo.getSiguiente());
+        }
+
     }
 
     public static Nodo crearNodoAlInicio() {
@@ -277,6 +289,7 @@ public class ListaSimple {
                     break;
                 case 3:
                     mostrarLista(nodoPermanente);
+                    mostrarListaFormaRecursiva(nodoPermanente);
                     break;
                 case 4:
                     buscarNodoEnLista(nodoPermanente,

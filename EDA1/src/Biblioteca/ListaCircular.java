@@ -1,12 +1,10 @@
-package Unit8ListasCirculares;
+package Biblioteca;
 
 /** 
  * @autor: JEFFERSON DAVID CHILENO MANOBANDA
  */
 
 import javax.swing.JOptionPane;
-
-import Biblioteca.Nodo;
 
 /*
 

@@ -6,7 +6,7 @@
 }
 
 body {
-   background-color: #63a5b5;
+   background-color: #11b3db38;
 }
 
 nav {
@@ -71,11 +71,11 @@ li:hover {
    width: 210px;
    height: 310px;
    /* border: 1px solid red; */
-   border: 1px solid #00bb2f;
+   border: 1px solid #303030;
    border-radius: 10px;
    padding: 5px 10px;
    text-align: center;
-   background-color: #13de0429;
+   background-color: #ffffffbb;
 }
 
 .curso-materia {
@@ -152,4 +152,10 @@ p {
 .ov-btn-grow-skew:hover::after {
    transition: all 0.3s ease-out;
    transform: skewX(-45deg) scale(1, 1);
+}
+
+.hero-footer {
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }

@@ -1,4 +1,4 @@
-package Unit7Listas;
+package Unit8ListasCirculares;
 
 public class Nodo {
     private String dato;

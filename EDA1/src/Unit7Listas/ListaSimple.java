@@ -122,8 +122,6 @@ package Unit7Listas;
 
 import javax.swing.JOptionPane;
 
-import Biblioteca.Nodo;
-
 public class ListaSimple {
     private static String lista = "";
 

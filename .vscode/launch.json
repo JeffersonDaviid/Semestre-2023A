@@ -6,6 +6,13 @@
    "configurations": [
       {
          "type": "java",
+         "name": "Main",
+         "request": "launch",
+         "mainClass": "Unit11ArbolBinarioBusqueda.Main",
+         "projectName": "CODE_6439b120"
+      },
+      {
+         "type": "java",
          "name": "ArbolBusqueda",
          "request": "launch",
          "mainClass": "Unit11ArbolBinarioBusqueda.ArbolBusqueda",

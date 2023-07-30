@@ -1,43 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Unit12ABBAVL;
-
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Mayrita Carrion
- */
 public class ArbolAVL {
 
-    private NodoAVL raiz;
+    // Atributos de la clase ArbolAVL
+    private NodoAVL raiz; // La raíz del árbol AVL.
 
+    // Constructor sin parámetros: Inicializa un árbol AVL vacío.
     public ArbolAVL() {
         this.raiz = null;
     }
 
+    // Constructor con parámetro raiz: Inicializa un árbol AVL con la raíz
+    // especificada.
     public ArbolAVL(NodoAVL raiz) {
         this.raiz = raiz;
     }
 
+    // Método para obtener la raíz del árbol AVL.
     public NodoAVL getRaiz() {
         return raiz;
     }
 
+    // Método para establecer la raíz del árbol AVL.
     public void setRaiz(NodoAVL raiz) {
         this.raiz = raiz;
     }
 
+    // Método para insertar un valor en el árbol AVL.
+    // El método se encarga de mantener el árbol balanceado después de la inserción.
     public void insertar(int valor) {
-
         Logical h = new Logical(false);
-
         this.raiz = insertarAvl(this.raiz, valor, h);
     }
 
+    // Método privado para realizar la inserción de un valor en el árbol AVL.
+    // Este método es usado internamente por el método insertar.
     private NodoAVL insertarAvl(NodoAVL raizAux, int dato, Logical h) {
         NodoAVL nodo1;
         if (raizAux == null) {
@@ -45,12 +42,9 @@ public class ArbolAVL {
             h.setLogical(true);
         } else if (dato < raizAux.getInfo()) {
             NodoAVL ramaIz;
-
             ramaIz = insertarAvl(raizAux.getIzq(), dato, h);
             raizAux.setIzq(ramaIz);
-
             if (h.valorBoolean()) {
-
                 switch (raizAux.getFe()) {
                     case 1:
                         raizAux.setFe(0);
@@ -61,62 +55,48 @@ public class ArbolAVL {
                         break;
                     case -1:
                         nodo1 = raizAux.getIzq();
-
                         if (nodo1.getFe() == -1) {
                             raizAux = rotacionII(raizAux, nodo1);
-
                         } else {
                             raizAux = rotacionID(raizAux, nodo1);
-
                             h.setLogical(false);
                         }
-                        break; // Agregar break aquí
-
-                    // Agregar el caso predeterminado
-                    default:
-                        break;
                 }
             }
-
         } else if (dato > raizAux.getInfo()) {
             NodoAVL ramaDe;
             ramaDe = insertarAvl(raizAux.getDer(), dato, h);
             raizAux.setDer(ramaDe);
-
             if (h.valorBoolean()) {
                 switch (raizAux.getFe()) {
                     case 1:
                         nodo1 = raizAux.getDer();
-                        if (nodo1.getFe() == 1) {
-
+                        if (nodo1.getFe() == +1) {
                             raizAux = rotacionDD(raizAux, nodo1);
                         } else {
-
                             raizAux = rotacionDI(raizAux, nodo1);
-
                             h.setLogical(false);
                         }
                         break;
                     case 0:
-                        raizAux.setFe(1);
+                        raizAux.setFe(+1);
                         break;
                     case -1:
                         raizAux.setFe(0);
                         h.setLogical(false);
-                        break; // Agregar break aquí
-                    // Agregar el caso predeterminado
-                    default:
-                        break;
                 }
             }
         } else {
             JOptionPane.showMessageDialog(null, "No puede haber claves repetidas ");
         }
-        return raizAux; // Agregar la declaración de retorno
+        return raizAux;
     }
 
+    // Clase interna Logical: Utilizada para representar un valor lógico que puede
+    // ser modificado por referencia.
+    // En este caso, se utiliza para llevar información sobre si ocurrió una
+    // rotación durante la inserción.
     public class Logical {
-
         boolean v;
 
         public Logical(boolean f) {
@@ -132,11 +112,13 @@ public class ArbolAVL {
         }
     }
 
+    // Método para realizar una rotación simple izquierda-izquierda (II) para el
+    // balanceo del árbol AVL.
+    // Es un tipo de rotación utilizada durante la inserción para mantener el
+    // balance del árbol.
     private NodoAVL rotacionII(NodoAVL nodo1, NodoAVL nodo2) {
-
         nodo1.setIzq(nodo2.getDer());
         nodo2.setDer(nodo1);
-
         if (nodo2.getFe() == -1) {
             nodo1.setFe(0);
             nodo2.setFe(0);
@@ -147,10 +129,13 @@ public class ArbolAVL {
         return nodo2;
     }
 
+    // Método para realizar una rotación simple derecha-derecha (DD) para el
+    // balanceo del árbol AVL.
+    // Es otro tipo de rotación utilizada durante la inserción para mantener el
+    // balance del árbol.
     private NodoAVL rotacionDD(NodoAVL nodo1, NodoAVL nodo2) {
         nodo1.setDer(nodo2.getIzq());
         nodo2.setIzq(nodo1);
-
         if (nodo2.getFe() == +1) {
             nodo1.setFe(0);
             nodo2.setFe(0);
@@ -161,6 +146,10 @@ public class ArbolAVL {
         return nodo2;
     }
 
+    // Método para realizar una rotación doble izquierda-derecha (ID) para el
+    // balanceo del árbol AVL.
+    // Es otro tipo de rotación utilizada durante la inserción para mantener el
+    // balance del árbol.
     private NodoAVL rotacionID(NodoAVL nodo1, NodoAVL nodo2) {
         NodoAVL n3;
         n3 = nodo2.getDer();
@@ -168,7 +157,6 @@ public class ArbolAVL {
         n3.setDer(nodo1);
         nodo2.setDer(n3.getIzq());
         n3.setIzq(nodo2);
-
         if (n3.getFe() == +1) {
             nodo2.setFe(-1);
         } else {
@@ -183,6 +171,10 @@ public class ArbolAVL {
         return n3;
     }
 
+    // Método para realizar una rotación doble derecha-izquierda (DI) para el
+    // balanceo del árbol AVL.
+    // Es otro tipo de rotación utilizada durante la inserción para mantener el
+    // balance del árbol.
     private NodoAVL rotacionDI(NodoAVL nodo1, NodoAVL nodo2) {
         NodoAVL nodo3;
         nodo3 = nodo2.getIzq();
@@ -190,7 +182,6 @@ public class ArbolAVL {
         nodo3.setIzq(nodo1);
         nodo2.setIzq(nodo3.getDer());
         nodo3.setDer(nodo2);
-
         if (nodo3.getFe() == +1) {
             nodo1.setFe(-1);
         } else {
@@ -205,8 +196,9 @@ public class ArbolAVL {
         return nodo3;
     }
 
+    // Método para contar el número de nodos en el árbol AVL.
     public int numNodos(NodoAVL raiz) {
-        // recursividad para contar el numero de nodos de todo el árbol
+        // Método recursivo que cuenta el número de nodos en todo el árbol.
         if (raiz == null) {
             return 0;
         } else {
@@ -214,39 +206,35 @@ public class ArbolAVL {
         }
     }
 
+    // Método para eliminar un valor del árbol AVL.
+    // El método se encarga de mantener el árbol balanceado después de la
+    // eliminación.
     public void eliminar(int valor) {
         Logical flag = new Logical(false);
         this.raiz = borrarAvl(this.raiz, valor, flag);
     }
 
+    // Método privado para realizar la eliminación de un valor del árbol AVL.
+    // Este método es usado internamente por el método eliminar.
     private NodoAVL borrarAvl(NodoAVL nuevaRaiz, int clave, Logical cambiaAltura) {
 
         if (nuevaRaiz == null) {
             JOptionPane.showMessageDialog(null, " Nodo no encontrado ");
-
         } else if (clave < nuevaRaiz.getInfo()) {
             NodoAVL iz;
-
             iz = borrarAvl(nuevaRaiz.getIzq(), clave, cambiaAltura);
             nuevaRaiz.setIzq(iz);
             if (cambiaAltura.valorBoolean()) { //
-
                 nuevaRaiz = equilibrar1(nuevaRaiz, cambiaAltura);
             }
-
         } else if (clave > nuevaRaiz.getInfo()) {
             NodoAVL dr;
-
             dr = borrarAvl(nuevaRaiz.getDer(), clave, cambiaAltura);
-
             nuevaRaiz.setDer(dr);
-
             if (cambiaAltura.valorBoolean())
-
                 nuevaRaiz = equilibrar2(nuevaRaiz, cambiaAltura);
         } else // Nodo encontrado
         {
-
             NodoAVL nodoQ;
             nodoQ = nuevaRaiz;
             if (nodoQ.getIzq() == null) {
@@ -256,23 +244,19 @@ public class ArbolAVL {
                 nuevaRaiz = nodoQ.getIzq();
                 cambiaAltura.setLogical(true);
             } else {
-
                 NodoAVL nodoIz;
-
                 nodoIz = reemplazar(nuevaRaiz, nuevaRaiz.getIzq(),
                         cambiaAltura);
-
                 nuevaRaiz.setIzq(nodoIz);
-
                 if (cambiaAltura.valorBoolean())
                     nuevaRaiz = equilibrar1(nuevaRaiz, cambiaAltura);
             }
             nodoQ = null;
         }
-
         return nuevaRaiz;
     }
 
+    // Método privado para encontrar el sucesor de un nodo al eliminar.
     private NodoAVL reemplazar(NodoAVL nodo, NodoAVL nodoAct, Logical cambiaAltura) {
         if (nodoAct.getDer() != null) {
             NodoAVL auxi;
@@ -290,8 +274,10 @@ public class ArbolAVL {
         return nodoAct;
     }
 
+    // Método privado para equilibrar el árbol AVL después de una eliminación (caso
+    // 1).
     private NodoAVL equilibrar1(NodoAVL nodo1, Logical cambiaAltura) {
-        NodoAVL nodo2 = nodo1.getDer(); // Agregar esta línea para obtener el nodo2
+        NodoAVL nodo2 = nodo1.getIzq(); // Initialize nodo2 to the left child of nodo1
         switch (nodo1.getFe()) {
             case -1:
                 nodo1.setFe(0);
@@ -300,7 +286,7 @@ public class ArbolAVL {
                 nodo1.setFe(1);
                 cambiaAltura.setLogical(false);
                 break;
-            case 1: // Cambiar +1 por 1
+            case +1:
                 if (nodo2.getFe() >= 0) {
                     if (nodo2.getFe() == 0)
                         cambiaAltura.setLogical(false);
@@ -312,6 +298,8 @@ public class ArbolAVL {
         return nodo1;
     }
 
+    // Método privado para equilibrar el árbol AVL después de una eliminación (caso
+    // 2).
     private NodoAVL equilibrar2(NodoAVL nodo1, Logical cambiaAltura) {
         NodoAVL nodo2;
         switch (nodo1.getFe()) {
@@ -335,13 +323,16 @@ public class ArbolAVL {
         return nodo1;
     }
 
+    // Método para buscar un valor en el árbol AVL.
     public void buscarAVL(int clave) {
         NodoAVL aux = new NodoAVL();
         aux = ayudanteBuscar(this.raiz, clave);
     }
 
-    NodoAVL aux = new NodoAVL();
+    NodoAVL aux = new NodoAVL(); // Instancia de una variable aux de la clase NodoAVL()
 
+    // Método privado para buscar un valor en el árbol AVL.
+    // Este método es usado internamente por el método buscarAVL.
     public NodoAVL ayudanteBuscar(NodoAVL nod, int clave) {
         if (nod.getInfo() == clave) {
             JOptionPane.showMessageDialog(null, "Clave encontrada");
@@ -369,21 +360,20 @@ public class ArbolAVL {
         return this.aux;
     }
 
+    // Método para realizar un recorrido inorden del árbol AVL.
+    // Imprime los valores en orden ascendente.
     public void recorridoInorden() {
         ayudanteInorden(this.raiz);
     }
 
+    // Método privado para realizar el recorrido inorden del árbol AVL.
+    // Este método es usado internamente por el método público recorridoInorden.
     public void ayudanteInorden(NodoAVL nod) {
-
         if (nod == null) {
             return;
         }
-
         ayudanteInorden(nod.getIzq());
-
         System.out.println("\t" + nod.getInfo());
-
         ayudanteInorden(nod.getDer());
     }
-
 }

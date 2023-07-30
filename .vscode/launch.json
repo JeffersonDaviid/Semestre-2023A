@@ -6,6 +6,27 @@
    "configurations": [
       {
          "type": "java",
+         "name": "App",
+         "request": "launch",
+         "mainClass": "prueba.App",
+         "projectName": "CODE_6439b120"
+      },
+      {
+         "type": "java",
+         "name": "Arbol",
+         "request": "launch",
+         "mainClass": "Unit10ArboleBinario.Arbol",
+         "projectName": "CODE_6439b120"
+      },
+      {
+         "type": "java",
+         "name": "App",
+         "request": "launch",
+         "mainClass": "Unit12ABBAVL.App",
+         "projectName": "CODE_6439b120"
+      },
+      {
+         "type": "java",
          "name": "Main",
          "request": "launch",
          "mainClass": "Unit11ArbolBinarioBusqueda.Main",

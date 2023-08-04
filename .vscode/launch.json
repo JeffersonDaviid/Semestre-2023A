@@ -6,6 +6,41 @@
    "configurations": [
       {
          "type": "java",
+         "name": "Main",
+         "request": "launch",
+         "mainClass": "Main",
+         "projectName": "CODE_6439b120"
+      },
+      {
+         "type": "java",
+         "name": "ArbolBusqueda",
+         "request": "launch",
+         "mainClass": "Unit11ArbolBinarioBusqueda.ArbolBusqueda",
+         "projectName": "CODE_a5c2b294"
+      },
+      {
+         "type": "java",
+         "name": "Main",
+         "request": "launch",
+         "mainClass": "Unit11ArbolBinarioBusqueda.Main",
+         "projectName": "CODE_a5c2b294"
+      },
+      {
+         "type": "java",
+         "name": "Main",
+         "request": "launch",
+         "mainClass": "Unit12ABBAVLPersonal.Main",
+         "projectName": "CODE_a5c2b294"
+      },
+      {
+         "type": "java",
+         "name": "Main",
+         "request": "launch",
+         "mainClass": "Main",
+         "projectName": "CODE_a5c2b294"
+      },
+      {
+         "type": "java",
          "name": "App",
          "request": "launch",
          "mainClass": "prueba.App",

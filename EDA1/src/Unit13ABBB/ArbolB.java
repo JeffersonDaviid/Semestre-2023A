@@ -1,23 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Unit13ABBB;
 
 /**
  *
- * @author Mayrita
+ * @author Jefferson Chileno
  */
 public class ArbolB {
 
-    NodoArbolB root;
-    int t;
+    NodoArbolB root;// Definimos el nodo que sera la raiz de nuestro arbol
+    int gradoArbolB; // grado del arbol
 
     // Constructor
-    public ArbolB(int t) {
-        this.t = t;
-        root = new NodoArbolB(t);
+    public ArbolB(int gradoArbolB) {
+        this.gradoArbolB = gradoArbolB;
+        root = new NodoArbolB(gradoArbolB);
     }
 
     public int buscarClaveMayor() {
@@ -32,17 +27,19 @@ public class ArbolB {
         }
 
         // Mientras no sea una hoja
-        while (!current.leaf) {
+        while (!current.esNodoHoja) {
             // Se accede al hijo mas a la derecha
-            current = current.child[current.n];
+            current = current.lsHijos[current.numClavesEnNodo];
         }
+
+        // luego de pasar el while tendremos que nuestro nodo actual es una hoja
 
         return claveMayorPorNodo(current);
     }
 
     private int claveMayorPorNodo(NodoArbolB current) {
         // Devuelve el valor mayor, el que esta mas a la derecha
-        return current.key[current.n - 1];
+        return current.lsClaves[current.numClavesEnNodo - 1];
     }
 
     public void mostrarClavesNodoMinimo() {
@@ -63,9 +60,9 @@ public class ArbolB {
         NodoArbolB aux = root;
 
         // Mientras no sea una hoja
-        while (!aux.leaf) {
+        while (!aux.esNodoHoja) {
             // Se accede al primer hijo
-            aux = aux.child[0];
+            aux = aux.lsHijos[0];
         }
 
         // Devuelve el nodo menor, el que esta mas a la izquierda
@@ -85,43 +82,43 @@ public class ArbolB {
     }
 
     // Search
-    private NodoArbolB search(NodoArbolB actual, int key) {
+    private NodoArbolB search(NodoArbolB actual, int clave) {
         int i = 0;// se empieza a buscar siempre en la primera posicion
 
         // Incrementa el indice mientras el valor de la clave del nodo sea menor
-        while (i < actual.n && key > actual.key[i]) {
+        while (i < actual.numClavesEnNodo && clave > actual.lsClaves[i]) {
             i++;
         }
 
         // Si la clave es igual, entonces retornamos el nodo
-        if (i < actual.n && key == actual.key[i]) {
+        if (i < actual.numClavesEnNodo && clave == actual.lsClaves[i]) {
             return actual;
         }
 
         // Si llegamos hasta aqui, entonces hay que buscar los hijos
         // Se revisa primero si tiene hijos
-        if (actual.leaf) {
+        if (actual.esNodoHoja) {
             return null;
         } else {
             // Si tiene hijos, hace una llamada recursiva
-            return search(actual.child[i], key);
+            return search(actual.lsHijos[i], clave);
         }
     }
 
-    public void insertar(int key) {
-        NodoArbolB r = root;
+    public void insertar(int clave) {
+        NodoArbolB auxRoot = root;
 
         // Si el nodo esta lleno lo debe separar antes de insertar
-        if (r.n == ((2 * t) - 1)) {
-            NodoArbolB s = new NodoArbolB(t);
+        if (auxRoot.numClavesEnNodo == ((2 * gradoArbolB) - 1)) {
+            NodoArbolB s = new NodoArbolB(gradoArbolB);
             root = s;
-            s.leaf = false;
-            s.n = 0;
-            s.child[0] = r;
-            split(s, 0, r);
-            nonFullInsert(s, key);
+            s.esNodoHoja = false;
+            s.numClavesEnNodo = 0;
+            s.lsHijos[0] = auxRoot;
+            split(s, 0, auxRoot);
+            nonFullInsert(s, clave);
         } else {
-            nonFullInsert(r, key);
+            nonFullInsert(auxRoot, clave);
         }
     }
 
@@ -133,72 +130,73 @@ public class ArbolB {
     // y = |10|20|30|40|50|
     private void split(NodoArbolB x, int i, NodoArbolB y) {
         // Nodo temporal que sera el hijo i + 1 de x
-        NodoArbolB z = new NodoArbolB(t);
-        z.leaf = y.leaf;
-        z.n = (t - 1);
+        NodoArbolB z = new NodoArbolB(gradoArbolB);
+        z.esNodoHoja = y.esNodoHoja;
+        z.numClavesEnNodo = (gradoArbolB - 1);
 
-        // Copia las ultimas (t - 1) claves del nodo y al inicio del nodo z // z =
+        // Copia las ultimas (gradoArbolB - 1) claves del nodo y al inicio del nodo z //
+        // z =
         // |40|50| | | |
-        for (int j = 0; j < (t - 1); j++) {
-            z.key[j] = y.key[(j + t)];
+        for (int j = 0; j < (gradoArbolB - 1); j++) {
+            z.lsClaves[j] = y.lsClaves[(j + gradoArbolB)];
         }
 
         // Si no es hoja hay que reasignar los nodos hijos
-        if (!y.leaf) {
-            for (int k = 0; k < t; k++) {
-                z.child[k] = y.child[(k + t)];
+        if (!y.esNodoHoja) {
+            for (int k = 0; k < gradoArbolB; k++) {
+                z.lsHijos[k] = y.lsHijos[(k + gradoArbolB)];
             }
         }
 
         // nuevo tamanio de y // x = | | | | | |
-        y.n = (t - 1); // / \
-                       // |10|20| | | |
+        y.numClavesEnNodo = (gradoArbolB - 1); // / \
+        // |10|20| | | |
         // Mueve los hijos de x para darle espacio a z
-        for (int j = x.n; j > i; j--) {
-            x.child[(j + 1)] = x.child[j];
+        for (int j = x.numClavesEnNodo; j > i; j--) {
+            x.lsHijos[(j + 1)] = x.lsHijos[j];
         }
         // Reasigna el hijo (i+1) de x // x = | | | | | |
-        x.child[(i + 1)] = z; // / \
-                              // |10|20| | | | |40|50| | | |
+        x.lsHijos[(i + 1)] = z; // / \
+                                // |10|20| | | | |40|50| | | |
         // Mueve las claves de x
-        for (int j = x.n; j > i; j--) {
-            x.key[(j + 1)] = x.key[j];
+        for (int j = x.numClavesEnNodo; j > i; j--) {
+            x.lsClaves[(j + 1)] = x.lsClaves[j];
         }
 
         // Agrega la clave situada en la mediana // x = |30| | | | |
-        x.key[i] = y.key[(t - 1)]; // / \
-        x.n++; // |10|20| | | | |40|50| | | |
+        x.lsClaves[i] = y.lsClaves[(gradoArbolB - 1)]; // / \
+        x.numClavesEnNodo++; // |10|20| | | | |40|50| | | |
     }
 
-    private void nonFullInsert(NodoArbolB x, int key) {
+    private void nonFullInsert(NodoArbolB x, int clave) {
         // Si es una hoja
-        if (x.leaf) {
-            int i = x.n; // cantidad de valores del nodo
+        if (x.esNodoHoja) {
+            int i = x.numClavesEnNodo; // cantidad de valores del nodo
             // busca la posicion i donde asignar el valor
-            while (i >= 1 && key < x.key[i - 1]) {
-                x.key[i] = x.key[i - 1];// Desplaza los valores mayores a key
+            while (i >= 1 && clave < x.lsClaves[i - 1]) {
+                x.lsClaves[i] = x.lsClaves[i - 1];// Desplaza los valores mayores a clave
                 i--;
             }
 
-            x.key[i] = key;// asigna el valor al nodo
-            x.n++; // aumenta la cantidad de elementos del nodo
+            x.lsClaves[i] = clave;// asigna el valor al nodo
+            x.numClavesEnNodo++; // aumenta la cantidad de elementos del nodo
         } else {
             int j = 0;
             // Busca la posicion del hijo
-            while (j < x.n && key > x.key[j]) {
+            while (j < x.numClavesEnNodo && clave > x.lsClaves[j]) {
                 j++;
             }
 
             // Si el nodo hijo esta lleno lo separa
-            if (x.child[j].n == (2 * t - 1)) {
-                split(x, j, x.child[j]);
+            if (x.lsHijos[j].numClavesEnNodo == (2 * gradoArbolB - 1)) {
+                split(x, j, x.lsHijos[j]);
 
-                if (key > x.key[j]) {
+                if (clave > x.lsClaves[j]) {
                     j++;
                 }
             }
 
-            nonFullInsert(x.child[j], key);
+            nonFullInsert(x.lsHijos[j], clave);
         }
     }
 
@@ -206,17 +204,21 @@ public class ArbolB {
         print(root);
     }
 
-    // Print en preorder
-    private void print(NodoArbolB n) {
-        n.imprimir();
+    /**
+     * Metodo para imprimir los nodos en forma preorden
+     * 
+     * @param nodo
+     */
+    private void print(NodoArbolB nodo) {
+        nodo.imprimir();
 
         // Si no es hoja
-        if (!n.leaf) {
+        if (!nodo.esNodoHoja) {
             // recorre los nodos para saber si tiene hijos
-            for (int j = 0; j <= n.n; j++) {
-                if (n.child[j] != null) {
+            for (int j = 0; j <= nodo.numClavesEnNodo; j++) {
+                if (nodo.lsHijos[j] != null) {
                     System.out.println();
-                    print(n.child[j]);
+                    print(nodo.lsHijos[j]);
                 }
             }
         }

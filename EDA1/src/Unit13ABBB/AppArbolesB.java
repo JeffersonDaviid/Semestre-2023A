@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Unit13ABBB;
 
 /**
  *
- * @author Mayrita
+ * @author Jefferson Chileno
  */
-public class main {
+public class AppArbolesB {
     public static void main(String[] args) {
         // grado minimo del Arbol B es t=3
         // Cada nodo soporta 2t hijos y 2t-1 claves

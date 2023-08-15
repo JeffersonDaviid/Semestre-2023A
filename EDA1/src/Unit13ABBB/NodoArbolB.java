@@ -26,16 +26,26 @@ public class NodoArbolB {
         lsHijos = new NodoArbolB[(2 * gradoArbolB)];// num max de Hijos
     }
 
-    public void imprimir() {
+    public String data;
+
+    public String imprimir() {
         System.out.print("[");
+        data += "[";
+
         for (int i = 0; i < numClavesEnNodo; i++) {
             if (i < numClavesEnNodo - 1) {
                 System.out.print(lsClaves[i] + " | ");
+                data += lsClaves[i] + " | ";
+
             } else {
                 System.out.print(lsClaves[i]);
+                data += lsClaves[i];
             }
         }
         System.out.print("]");
+        data += "]";
+
+        return data;
     }
 
     /**

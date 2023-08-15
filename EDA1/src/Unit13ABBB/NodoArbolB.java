@@ -11,8 +11,6 @@ public class NodoArbolB {
     int lsClaves[]; // almacena las claves en el nodo
     NodoArbolB lsHijos[]; // arreglo con referencias a los lsHijos
 
-    // Constructores
-
     /**
      * Cada nodo puede tener como máximo "2*t - 1" claves.
      * Cada nodo (excepto la raíz) debe tener como mínimo "t - 1" claves.

@@ -1,5 +1,7 @@
 package Unit13ABBB;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Jefferson Chileno
@@ -8,12 +10,11 @@ public class AppArbolesBPlus {
     public static void main(String[] args) {
         // grado minimo del Arbol B es t=3
         // Cada nodo soporta 2t hijos y 2t-1 claves
-        int t = 3;
-        // Se crea el arbol B segun t
-        ArbolBPlus arbolBPlus = new ArbolBPlus(t);
+        int gradoArbol = 2;
+        // Se crea el arbol B segun gradoArbol
+        ArbolBPlus arbolBPlus = new ArbolBPlus(gradoArbol);
 
-        // Valores a ingresar primera ronda
-        int[] valoresUno = { 20, 10, 50, 30, 40, 60, 70, 90, 100, 105, 80, 110, 25, -10 };
+        int[] valoresUno = { 20, 10, 50, 30, 40, 60, 70, 90, 100, 105 };
         System.out.println("-- INICIO --");
         System.out.println("INSERTANDO VALORES AL ARBOL B");
         for (int i = 0; i < valoresUno.length; i++) {
@@ -21,34 +22,11 @@ public class AppArbolesBPlus {
             arbolBPlus.insertar(valoresUno[i]);
         }
 
-        // // Mostrando arbol B por pantalla en preorder
-        // System.out.println("ESTADO ARBOL B");
-        // arbolBPlus.showBTree();
-        // System.out.println();
-
-        // // Valores a ingresar segunda ronda
-        // System.out.println("Insertando... valor 60");
-        // arbolBPlus.insertar(60);
-        // // Mostrando arbol B por pantalla en preorder
-        // System.out.println("ESTADO ARBOL B");
-        // arbolBPlus.showBTree();
-        // System.out.println();
-
-        // // Valores a ingresar tercera ronda
-        // System.out.println("Insertando... valor 80");
-        // arbolBPlus.insertar(80);
-        // System.out.println("Insertando... valor 90");
-        // arbolBPlus.insertar(90);
-        // System.out.println("Insertando... valor 100");
-        // arbolBPlus.insertar(100);
-        // System.out.println("Insertando... valor 110");
-        // arbolBPlus.insertar(110);
-        // System.out.println("Insertando... valor 15");
-        // arbolBPlus.insertar(15);
-        // // Mostrando arbol B por pantalla en preorder
-        // System.out.println("ESTADO ARBOL B");
-        arbolBPlus.showBTree();
-
+        System.out.println("\nARBOL B+");
+        arbolBPlus.imprimirArbolBPlus(arbolBPlus);
         System.out.println("\n-- FIN --");
+
+        JOptionPane.showMessageDialog(null, arbolBPlus.dataPrint);
     }
+
 }

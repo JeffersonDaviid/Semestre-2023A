@@ -6,6 +6,27 @@
    "configurations": [
       {
          "type": "java",
+         "name": "buscaminas",
+         "request": "launch",
+         "mainClass": "Proyecto.buscaminas",
+         "projectName": "EDA1"
+      },
+      {
+         "type": "java",
+         "name": "buscaminas",
+         "request": "launch",
+         "mainClass": "Proyecto.buscaminas",
+         "projectName": "CODE_a5c2b294"
+      },
+      {
+         "type": "java",
+         "name": "buscaminas",
+         "request": "launch",
+         "mainClass": "Proyecto.src.buscaminas",
+         "projectName": "CODE_a5c2b294"
+      },
+      {
+         "type": "java",
          "name": "Main",
          "request": "launch",
          "mainClass": "Unit15Hash.Main",

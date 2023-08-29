@@ -48,20 +48,4 @@ public class NodoArbolB {
         return data;
     }
 
-    /**
-     * metodo para determinar si un dato ya se encuentra en el nodo/arbol
-     * 
-     * @param k dato a buscar
-     * @return i: la posicion donde se lo ha encontrado o -1 si no ha sido
-     *         encontrado
-     */
-    public int find(int k) {
-        for (int i = 0; i < numClavesEnNodo; i++) {
-            if (lsClaves[i] == k) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
 }

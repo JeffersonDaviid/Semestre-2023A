@@ -91,6 +91,77 @@ Fin Algoritmo
 public class AlgoritmoBO {
     public static String lsCambiosInternos;
 
+    public static String ordenarPorBurbuja(int[] listaDesordenada) {
+        for (int i = listaDesordenada.length - 1; i > 0; i--) { // n
+            for (int j = 0; j < i; j++) { // n*n
+
+                if (listaDesordenada[j] > listaDesordenada[j + 1]) { // n*n
+                    int auxSiguiente = listaDesordenada[j + 1];// n*n
+                    listaDesordenada[j + 1] = listaDesordenada[j];// n*n
+                    listaDesordenada[j] = auxSiguiente;// n*n
+                }
+            }
+        }
+        return lsCambiosInternos; // 1
+
+        // FUNCION: 5n^2+n+1
+        // NOTACION: O(n^2) - El peor caso
+    }
+
+    public static void merge(int[] listaDesordenada, int valorEnLaIzquierda, int valorEnElMedio, int valorEnLaDerecha) {
+        int n1 = valorEnElMedio - valorEnLaIzquierda + 1; // 1
+        int n2 = valorEnLaDerecha - valorEnElMedio;// 1
+
+        int[] listaIzquierda = new int[n1]; // 1
+        int[] listaDerecha = new int[n2]; // 1
+
+        for (int i = 0; i < n1; i++) { // n1
+            listaIzquierda[i] = listaDesordenada[valorEnLaIzquierda + i]; // n1
+        }
+        for (int j = 0; j < n2; j++) { // n2
+            listaDerecha[j] = listaDesordenada[valorEnElMedio + 1 + j]; // n2
+        }
+
+        int i = 0, j = 0; // 1
+        int k = valorEnLaIzquierda; // 1
+
+        while (i < n1 && j < n2) { // n1 + n2
+            if (listaIzquierda[i] <= listaDerecha[j]) {// n1 + n2
+                listaDesordenada[k] = listaIzquierda[i];
+                i++;
+            } else {
+                listaDesordenada[k] = listaDerecha[j]; // n1*log(n1) + n2*log(n2)
+                j++;
+            }
+            k++;
+        }
+
+        while (i < n1) { // n1
+            listaDesordenada[k] = listaIzquierda[i]; // n1
+            i++;
+            k++;
+        }
+
+        while (j < n2) { // n2
+            listaDesordenada[k] = listaDerecha[j]; // n2
+            j++;
+            k++;
+        }
+    }
+
+    public static void mergeSort(int[] listaDesordenada, int valorEnLaIzquierda, int valorEnLaDerecha) {
+        if (valorEnLaIzquierda < valorEnLaDerecha) { // n
+            int valorEnElMedio = valorEnLaIzquierda + (valorEnLaDerecha - valorEnLaIzquierda) / 2; // 1
+
+            mergeSort(listaDesordenada, valorEnLaIzquierda, valorEnElMedio); // log(n)
+            mergeSort(listaDesordenada, valorEnElMedio + 1, valorEnLaDerecha);// log(n)
+
+            merge(listaDesordenada, valorEnLaIzquierda, valorEnElMedio, valorEnLaDerecha); // n
+        }
+
+        // O(n*log(n)) - El caso promedio
+    }
+
     public static String ordenarPorBurbujaMayor(int[] listaDesordenada) {
         lsCambiosInternos = "Lista Original: ";
         for (int valor : listaDesordenada)
@@ -148,31 +219,31 @@ public class AlgoritmoBO {
     }
 
     public static String ordenarPorBurbujaMenor(int[] listaDesordenada) {
-        lsCambiosInternos = "Lista Original: ";
-        for (int valor : listaDesordenada)
-            lsCambiosInternos += " | " + valor;
-        lsCambiosInternos += "\n";
+        lsCambiosInternos = "Lista Original: "; // 1
+        for (int valor : listaDesordenada) // n
+            lsCambiosInternos += " | " + valor; // n
+        lsCambiosInternos += "\n"; // 1
 
-        for (int i = 1; i < listaDesordenada.length; i++) {
-            for (int j = listaDesordenada.length - 1; j >= i; j--) {
+        for (int i = 1; i < listaDesordenada.length; i++) { // n
+            for (int j = listaDesordenada.length - 1; j >= i; j--) { // n*n
 
-                if (listaDesordenada[j] < listaDesordenada[j - 1]) {
-                    int auxSiguiente = listaDesordenada[j - 1];
-                    listaDesordenada[j - 1] = listaDesordenada[j];
-                    listaDesordenada[j] = auxSiguiente;
-                    // ver cambios internos
-                    System.out.print("Vuelta #" + i + ": ");
-                    lsCambiosInternos += "Vuelta #" + i + ": ";
-                    for (int valor : listaDesordenada)
-                        lsCambiosInternos += " | " + valor;
-                    lsCambiosInternos += "\n";
+                if (listaDesordenada[j] < listaDesordenada[j - 1]) { // n*n
+                    int auxSiguiente = listaDesordenada[j - 1]; // n*n
+                    listaDesordenada[j - 1] = listaDesordenada[j]; // n*n
+                    listaDesordenada[j] = auxSiguiente; // n*n
+                    // // ver cambios internos
+                    // System.out.print("Vuelta #" + i + ": ");
+                    // lsCambiosInternos += "Vuelta #" + i + ": ";
+                    // for (int valor : listaDesordenada)
+                    // lsCambiosInternos += " | " + valor;
+                    // lsCambiosInternos += "\n";
                 }
             }
-            // ver pasadas finales
-            lsCambiosInternos += "Vuelta #" + i + ":   ";
-            for (int valor : listaDesordenada)
-                lsCambiosInternos += " | " + valor;
-            lsCambiosInternos += "\n";
+            // // ver pasadas finales
+            // lsCambiosInternos += "Vuelta #" + i + ": ";
+            // for (int valor : listaDesordenada)
+            // lsCambiosInternos += " | " + valor;
+            // lsCambiosInternos += "\n";
         }
         return lsCambiosInternos;
     }
@@ -199,7 +270,8 @@ public class AlgoritmoBO {
                     // lsCambiosInternos += " | " + valor;
                     // lsCambiosInternos += "\n";
                 } else
-                    break;
+
+                    break; // n Log(n)
             }
             // ver pasadas finales
             lsCambiosInternos += "Vuelta #" + i + ":   ";

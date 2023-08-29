@@ -6,6 +6,27 @@
    "configurations": [
       {
          "type": "java",
+         "name": "CustomPanelExample",
+         "request": "launch",
+         "mainClass": "Proyecto.CustomPanelExample",
+         "projectName": "EDA1"
+      },
+      {
+         "type": "java",
+         "name": "buscaminas",
+         "request": "launch",
+         "mainClass": "Proyecto.buscaminas",
+         "projectName": "EDA1"
+      },
+      {
+         "type": "java",
+         "name": "AppArbolesBPlus",
+         "request": "launch",
+         "mainClass": "Unit13ABBB.AppArbolesBPlus",
+         "projectName": "EDA1_9a7eb87e"
+      },
+      {
+         "type": "java",
          "name": "ListaCircular",
          "request": "launch",
          "mainClass": "Unit8ListasCirculares.ListaCircular",

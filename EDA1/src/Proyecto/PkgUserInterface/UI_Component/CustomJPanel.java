@@ -48,7 +48,7 @@ public class CustomJPanel extends JPanel {
      * @param etiqueta
      * @param imagePath
      */
-    public CustomJPanel(String etiqueta, String imagePath) {
+    public CustomJPanel(String etiqueta, String imagePath, int valorCelda) {
         try {
             this.image = ImageIO.read(new File(imagePath));
         } catch (IOException ex) {
@@ -64,11 +64,15 @@ public class CustomJPanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (SwingUtilities.isLeftMouseButton(e) && esBandera == false && estaRevelado == false) {
-                    cambiarFondo("EDA1/src/Proyecto/images/celda.png");
-                    setEsBandera(false);
-                    System.out.println("hay un cambio a bomba");
-                    etiquetaCasillero.setVisible(true);
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    if (esBandera == false && estaRevelado == false) {
+                        if (valorCelda == -1) {
+                            cambiarFondo("EDA1/src/Proyecto/images/bomba.png");
+                        } else {
+                            cambiarFondo("EDA1/src/Proyecto/images/celda.png");
+                            etiquetaCasillero.setVisible(true);
+                        }
+                    }
                     setEstaRevelado(true);
 
                 } else if (SwingUtilities.isRightMouseButton(e)) {
@@ -76,7 +80,6 @@ public class CustomJPanel extends JPanel {
                     if (esBandera == false && estaRevelado == false) {
                         cambiarFondo("EDA1/src/Proyecto/images/bandera.png");
                         setEsBandera(true);
-                        System.out.println("hay un cambio a bandera");
                     } else if (esBandera == true && estaRevelado == false) {
                         cambiarFondo("EDA1/src/Proyecto/images/celda.png");
                         setEsBandera(false);
